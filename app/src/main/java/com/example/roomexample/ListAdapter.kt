@@ -47,10 +47,10 @@ class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ViewHolde
 
         @SuppressLint("SetTextI18n")
         fun bind(user: User) {
-            view.id_txt.text = user.id.toString()
-            view.firstName_txt.text = user.firstName
-            view.lastName_txt.text = user.lastName
-            view.age_txt.text = user.age.toString()
+            view.recycler_user_name.text = user.name
+            view.recycler_user_email.text = user.email
+            view.recycler_user_phone.text = user.phone
+            view.recycler_user_address.text = user.address
 
             view.custom_row_root.setOnClickListener {
                 (view.context as MainActivity).startUpdateSheet(user)

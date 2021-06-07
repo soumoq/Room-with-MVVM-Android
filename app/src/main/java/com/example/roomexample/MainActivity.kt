@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     fun startDeleteDialog(user: User) {
         val alert = this?.let { it1 -> AlertDialog.Builder(it1) }
-        alert?.setTitle("Are you sure you want to delete the note")
+        alert?.setTitle("Are you sure you want to delete the User")
         alert?.setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, which ->
             mUserViewModel.deleteUser(user)
         })

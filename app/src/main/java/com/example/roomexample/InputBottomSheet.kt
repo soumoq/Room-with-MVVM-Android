@@ -13,11 +13,14 @@ import com.example.roomexample.data.UserViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.input_buttom_sheet.view.*
 
-class InputBottomSheet : BottomSheetDialogFragment()  {
+class InputBottomSheet : BottomSheetDialogFragment() {
 
-    var fastName : EditText? = null
-    var lastName : EditText? = null
-    var age_et : EditText? = null
+    var user_name: EditText? = null
+    var user_email: EditText? = null
+    var user_phone: EditText? = null
+    var user_address: EditText? = null
+
+    val imageUrl = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
 
 
     private lateinit var mUserViewModel: UserViewModel
@@ -27,11 +30,14 @@ class InputBottomSheet : BottomSheetDialogFragment()  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view : View = inflater.inflate(R.layout.input_buttom_sheet, container, false)
+        val view: View = inflater.inflate(R.layout.input_buttom_sheet, container, false)
 
-        fastName = view.fast_name
-        lastName = view.last_name
-        age_et = view.age
+        view.bottom_sheet_title.text = "Insert"
+
+        user_name = view.user_name
+        user_email = view.user_email
+        user_phone = view.user_phone
+        user_address = view.user_address
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
@@ -44,24 +50,32 @@ class InputBottomSheet : BottomSheetDialogFragment()  {
     }
 
     private fun insertDataToDatabase() {
-        val firstName = fastName?.text.toString()
-        val lastName = lastName?.text.toString()
-        val age = age_et?.text.toString()
+        val userName = user_name?.text.toString()
+        val userEmail = user_email?.text.toString()
+        val userPhone = user_phone?.text.toString()
+        val userAddress = user_address?.text.toString()
 
-        if(inputCheck(firstName, lastName, age)){
+        if (inputCheck(userName, userEmail, userPhone, userAddress)) {
             // Create User Object
-            val user = User(0, firstName, lastName, Integer.parseInt(age.toString()))
+            val user = User(0, userName, userEmail, userPhone, userAddress,imageUrl)
             // Add Data to Database
             mUserViewModel.addUser(user)
             Toast.makeText(context, "Successfully added!", Toast.LENGTH_LONG).show()
             dismiss()
-        }else{
+        } else {
             Toast.makeText(context, "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun inputCheck(firstName: String, lastName: String, age: String): Boolean{
-        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())
+    private fun inputCheck(
+        name: String,
+        email: String,
+        phone: String,
+        userAddress: String
+    ): Boolean {
+        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(email) && TextUtils.isEmpty(phone) && TextUtils.isEmpty(
+            userAddress
+        ))
     }
 
 }

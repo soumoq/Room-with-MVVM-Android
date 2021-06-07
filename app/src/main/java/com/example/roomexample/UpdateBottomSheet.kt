@@ -15,9 +15,12 @@ import kotlinx.android.synthetic.main.input_buttom_sheet.view.*
 
 class UpdateBottomSheet(user: User) : BottomSheetDialogFragment() {
 
-    var fastName: EditText? = null
-    var lastName: EditText? = null
-    var age_et: EditText? = null
+    var user_name: EditText? = null
+    var user_email: EditText? = null
+    var user_phone: EditText? = null
+    var user_address: EditText? = null
+
+    val imageUrl = "https://homepages.cae.wisc.edu/~ece533/images/airplane.png"
 
     var user = user
 
@@ -30,13 +33,17 @@ class UpdateBottomSheet(user: User) : BottomSheetDialogFragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.input_buttom_sheet, container, false)
 
-        fastName = view.fast_name
-        lastName = view.last_name
-        age_et = view.age
+        view.bottom_sheet_title.text = "Update"
 
-        view.fast_name.setText(user.firstName)
-        view.last_name.setText(user.lastName)
-        view.age.setText(user.age.toString())
+        user_name = view.user_name
+        user_email = view.user_email
+        user_phone = view.user_phone
+        user_address = view.user_address
+
+        view.user_name.setText(user.name)
+        view.user_email.setText(user.email)
+        view.user_phone.setText(user.phone)
+        view.user_address.setText(user.address)
 
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
@@ -50,13 +57,14 @@ class UpdateBottomSheet(user: User) : BottomSheetDialogFragment() {
     }
 
     private fun updateDataToDatabase() {
-        val firstName = fastName?.text.toString()
-        val lastName = lastName?.text.toString()
-        val age = age_et?.text.toString()
+        val userName = user_name?.text.toString()
+        val userEmail = user_email?.text.toString()
+        val userPhone = user_phone?.text.toString()
+        val userAddress = user_address?.text.toString()
 
-        if (inputCheck(firstName, lastName, age)) {
+        if (inputCheck(userName, userEmail, userPhone, userAddress)) {
             // Create User Object
-            val updateUser = User(user.id, firstName, lastName, Integer.parseInt(age))
+            val updateUser = User(user.id, userName, userEmail, userPhone, userAddress, imageUrl)
             mUserViewModel.updateUser(updateUser)
             Toast.makeText(context, "Successfully Updated!", Toast.LENGTH_LONG).show()
             dismiss()
@@ -65,8 +73,15 @@ class UpdateBottomSheet(user: User) : BottomSheetDialogFragment() {
         }
     }
 
-    private fun inputCheck(firstName: String, lastName: String, age: String): Boolean {
-        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(lastName) && age.isEmpty())
+    private fun inputCheck(
+        name: String,
+        email: String,
+        phone: String,
+        userAddress: String
+    ): Boolean {
+        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(email) && TextUtils.isEmpty(phone) && TextUtils.isEmpty(
+            userAddress
+        ))
     }
 
 }
