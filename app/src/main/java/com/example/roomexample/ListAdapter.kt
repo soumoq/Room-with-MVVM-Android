@@ -55,6 +55,11 @@ class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ViewHolde
             view.custom_row_root.setOnClickListener {
                 (view.context as MainActivity).startUpdateSheet(user)
             }
+
+            view.custom_row_root.setOnLongClickListener {
+                (view.context as MainActivity).startDeleteDialog(user)
+                true
+            }
         }
     }
 }
