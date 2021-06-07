@@ -54,10 +54,10 @@ class InputBottomSheet : BottomSheetDialogFragment()  {
             val user = User(0, firstName, lastName, Integer.parseInt(age.toString()))
             // Add Data to Database
             mUserViewModel.addUser(user)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Successfully added!", Toast.LENGTH_LONG).show()
             dismiss()
         }else{
-            Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Please fill out all fields.", Toast.LENGTH_LONG).show()
         }
     }
 
