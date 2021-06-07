@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.roomapp.data.UserViewModel
+import com.example.roomexample.data.User
+import com.example.roomexample.data.UserViewModel
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,7 +31,11 @@ class MainActivity : AppCompatActivity() {
             listAdapter.updateData(it)
         })
 
-
-
     }
+
+    fun startUpdateSheet(user: User) {
+        val updateBottomSheet = UpdateBottomSheet(user)
+        updateBottomSheet.show(supportFragmentManager, "Fragment")
+    }
+
 }

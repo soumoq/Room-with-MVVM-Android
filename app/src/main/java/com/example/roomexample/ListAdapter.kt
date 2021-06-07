@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-import com.example.roomapp.data.User
+import com.example.roomexample.data.User
 import kotlinx.android.synthetic.main.custom_row.view.*
 
 
@@ -52,6 +52,9 @@ class ListAdapter(context: Context) : RecyclerView.Adapter<ListAdapter.ViewHolde
             view.lastName_txt.text = user.lastName
             view.age_txt.text = user.age.toString()
 
+            view.custom_row_root.setOnClickListener {
+                (view.context as MainActivity).startUpdateSheet(user)
+            }
         }
     }
 }
